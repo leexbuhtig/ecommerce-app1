@@ -1,3 +1,5 @@
+
+
 # 🛒 E-commerce Application
 
 A modern Spring Boot 3 e-commerce application with secure authentication, product management, and shopping cart
