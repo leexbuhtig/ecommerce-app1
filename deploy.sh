@@ -3,7 +3,7 @@
 # Menghubungkan ke server dan menjalankan deploy.sh
 ssh -p "${SERVER_PORT}" "${SERVER_USERNAME}"@"${SERVER_HOST}" -i key.txt -t -o StrictHostKeyChecking=no << 'ENDSSH'
 # Pindah ke direktori ecommerce (sesuaikan jika deploy.sh ada di folder lain)
-cd ~/ecommerce
+cd ~/ecommerce-leex
 
 # Memastikan bahwa file deploy.sh ada dan memiliki hak eksekusi
 if [ -f deploy.sh ]; then
