@@ -1,18 +1,11 @@
 #!/bin/bash
-ssh -p "${SERVER_PORT}" "${SERVER_USERNAME}"@"${SERVER_HOST}" -i key.txt -t -o StrictHostKeyChecking=no << 'ENDSSH'
+ssh -p "${SERVER_PORT}" "${SERVER_USERNAME}"@"${SERVER_HOST}" -i key.txt -t -t -o StrictHostKeyChecking=no << 'ENDSSH'
 cd ~/ecommerce
 cat .env
 set +a
 source .env
 start=$(date +"%s")
-
-# Debugging: Verify variables
-echo "DOCKERHUB_USERNAME: $DOCKERHUB_USERNAME"
-echo "DOCKERHUB_TOKEN: $DOCKERHUB_TOKEN"
-
-# Non-interactive Docker login
-echo $DOCKERHUB_TOKEN | docker login --username $DOCKERHUB_USERNAME --password-stdin --no-tty
-
+echo $DOCKERHUB_TOKEN | docker login --username $DOCKERHUB_USERNAME --password-stdin
 docker pull $CONTAINER_REPOSITORY:$IMAGE_TAG
 
 if [ "$(docker ps -qa -f name=$CONTAINER_NAME)" ]; then
@@ -25,6 +18,7 @@ if [ "$(docker ps -qa -f name=$CONTAINER_NAME)" ]; then
 fi
 
 docker run -d --restart unless-stopped -p $APP_PORT:$APP_PORT --env-file .env --name $CONTAINER_NAME  $CONTAINER_REPOSITORY:$IMAGE_TAG
+# $CONTAINER_REPOSITORY = leexbuhtig/ecommerce
 docker ps
 exit
 ENDSSH
@@ -36,5 +30,7 @@ else
 fi
 
 end=$(date +"%s")
+
 diff=$(($end - $start))
+
 echo "Deployed in : ${diff}s"
