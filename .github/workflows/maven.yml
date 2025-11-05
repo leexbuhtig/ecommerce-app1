@@ -9,7 +9,7 @@ env:
   IMAGE_TAG: ${{ github.run_number }}
   CONTAINER_NAME: ecommerce
   REGISTRY: docker.io
-  IMAGE_NAME: ${{ github.actor }}/ecommerce:$IMAGE_TAG
+  IMAGE_NAME: ${{ github.actor }}/ecommerce:latest
   ECR_REPOSITORY: ${{ vars.AWS_ECR_REPO }}
   AWS_ECR_REGISTRY: ${{ vars.AWS_ECR_REGISTRY }}
 
